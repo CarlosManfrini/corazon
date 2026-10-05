@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corazón</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle, #ffb6c9, #8e174d);
+        font-family: Arial, sans-serif;
+    }
+
+    .escena {
+        text-align: center;
+        position: relative;
+    }
+
+    .corazon {
+        font-size: 130px;
+        display: inline-block;
+        filter: drop-shadow(0 0 15px rgba(255,255,255,.8));
+        animation: saltar 0.8s infinite alternate ease-in-out,
+                   latir 1.2s infinite;
+        cursor: pointer;
+    }
+
+    @keyframes saltar {
+        from {
+            transform: translateY(0) rotate(-5deg);
+        }
+
+        to {
+            transform: translateY(-70px) rotate(5deg);
+        }
+    }
+
+    @keyframes latir {
+        0%, 100% {
+            scale: 1;
+        }
+
+        50% {
+            scale: 1.12;
+        }
+    }
+
+    .mensaje {
+        color: white;
+        font-size: 28px;
+        margin-top: 30px;
+        text-shadow: 0 2px 8px #5a0730;
+        animation: aparecer 2s ease-in-out;
+    }
+
+    @keyframes aparecer {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .mini-corazon {
+        position: fixed;
+        font-size: 20px;
+        pointer-events: none;
+        animation: subir 3s linear forwards;
+    }
+
+    @keyframes subir {
+        0% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        100% {
+            opacity: 0;
+            transform: translateY(-250px) scale(1.8) rotate(25deg);
+        }
+    }
+
+    .brillo {
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        background: rgba(255,255,255,.18);
+        border-radius: 50%;
+        filter: blur(25px);
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: resplandor 1.5s infinite alternate;
+        z-index: -1;
+    }
+
+    @keyframes resplandor {
+        from {
+            transform: translateX(-50%) scale(.8);
+            opacity: .4;
+        }
+
+        to {
+            transform: translateX(-50%) scale(1.2);
+            opacity: .8;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="escena">
+
+    <div class="brillo"></div>
+
+    <div class="corazon" id="corazon">
+        ❤️
+    </div>
+
+    <div class="mensaje">
+        ¡Meu coração pula de alegria.! 💕
+    </div>
+
+</div>
+
+<script>
+
+const corazon = document.getElementById("corazon");
+
+// Crear pequeños corazones románticos
+function crearCorazon() {
+
+    const mini = document.createElement("div");
+
+    mini.className = "mini-corazon";
+
+    const corazones = ["❤️", "💖", "💕", "💗", "💓", "💘"];
+
+    mini.innerHTML =
+        corazones[Math.floor(Math.random() * corazones.length)];
+
+    mini.style.left = Math.random() * 100 + "vw";
+    mini.style.top = (60 + Math.random() * 30) + "vh";
+
+    mini.style.fontSize =
+        (12 + Math.random() * 25) + "px";
+
+    mini.style.animationDuration =
+        (2 + Math.random() * 2) + "s";
+
+    document.body.appendChild(mini);
+
+    setTimeout(() => {
+        mini.remove();
+    }, 4000);
+}
+
+// Lluvia romántica de corazones
+setInterval(crearCorazon, 350);
+
+
+// Al hacer clic, el corazón salta con más alegría
+corazon.addEventListener("click", () => {
+
+    for (let i = 0; i < 12; i++) {
+        setTimeout(crearCorazon, i * 80);
+    }
+
+});
+
+</script>
+
+</body>
+</html>
